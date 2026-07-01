@@ -2,51 +2,405 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Calorie Debt Tracker Pro</title>
+<title>Calorie Debt Tracker</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#2E7D32">
+<meta name="theme-color" content="#0f8f3a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <style>
-*{box-sizing:border-box}body{font-family:Segoe UI,Arial,sans-serif;background:#f3f5f7;margin:0;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0}.container{max-width:980px;margin:auto;background:white;min-height:100vh;padding:22px}h1,h2{text-align:center}h1{margin-top:8px}.card{border:1px solid #ddd;border-radius:14px;padding:20px;margin-bottom:18px;background:#fff}.inputRow{display:flex;align-items:center;margin-bottom:10px}.inputRow label{width:220px;font-weight:600}.inputRow input,.inputRow select{width:180px;padding:10px;font-size:16px}.unit{margin-left:10px;color:#666}button{padding:12px 18px;margin:5px;font-size:15px;border:none;border-radius:10px;cursor:pointer;color:white}.start{background:#2E7D32}.food{background:#43A047}.exercise{background:#1976D2}.pause{background:#F57C00}.adjust{background:#6A1B9A}.export{background:#455A64}.reset{background:#D32F2F}.weigh{background:#00897B}.dashboard{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:18px}.tile{border-radius:14px;padding:18px;background:#fafafa;border:1px solid #ddd;text-align:center}.tileTitle{font-size:15px;color:#555}.tileValue{font-size:28px;font-weight:bold;margin-top:10px}.small{text-align:center;color:#555;font-size:16px;margin-top:8px;line-height:1.4}.progressOuter{width:100%;background:#ddd;border-radius:20px;overflow:hidden;height:28px}.progressInner{height:28px;width:0%;background:#2E7D32;text-align:center;color:white;line-height:28px;font-weight:bold}#log{max-height:280px;overflow-y:auto;background:#fafafa;border:1px solid #ddd;padding:10px;border-radius:10px}.logItem{padding:8px;border-bottom:1px solid #ddd}
-@media(max-width:700px){.container{width:100%;max-width:none;padding:14px;border-radius:0}h1{font-size:22px;margin:10px 0 16px}h2{font-size:17px;margin:0 0 14px}.dashboard{grid-template-columns:1fr 1fr;gap:10px}.tile{padding:12px 8px;min-height:96px}.tileTitle{font-size:12px;line-height:1.25}.tileValue{font-size:19px;line-height:1.15;word-break:break-word}.card{padding:14px;margin-bottom:12px;border-radius:14px}.inputRow{display:block;margin-bottom:12px}.inputRow label{display:block;width:auto;margin-bottom:5px;font-size:14px}.inputRow input,.inputRow select{width:100%;font-size:16px;padding:12px}.unit{display:block;margin-left:0;margin-top:4px;font-size:12px}button{width:100%;margin:6px 0;padding:13px;font-size:15px}.small{font-size:14px}#log{max-height:240px}}
-@media(max-width:380px){.dashboard{grid-template-columns:1fr}.tileValue{font-size:22px}}
+:root{--green:#0f8f3a;--green-dark:#08752d;--green-soft:#eaf8ee;--green-border:#ccebd5;--red:#e91d25;--red-dark:#c9151c;--red-soft:#fff1f1;--red-border:#ffd0d0;--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--bg:#f7f9fb;--card:#fff;--shadow:0 6px 18px rgba(15,23,42,.08)}*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0}.app{max-width:980px;min-height:100vh;margin:auto;background:linear-gradient(180deg,#fff 0%,#f8fafc 100%);padding-bottom:24px}.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:14px;padding:18px 22px;background:rgba(255,255,255,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}.menuIcon,.moreIcon{font-size:30px;line-height:1}.logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(145deg,#16a34a,#08752d);display:grid;place-items:center;color:white;font-size:28px;box-shadow:0 4px 12px rgba(15,143,58,.25)}.titleBlock{flex:1}.titleBlock h1{margin:0;font-size:25px;line-height:1.15}.titleBlock p{margin:4px 0 0;color:var(--muted);font-size:15px}.moon{font-size:26px}.datebar{display:flex;justify-content:space-between;align-items:center;padding:18px 32px;color:var(--green-dark);font-size:28px;touch-action:pan-y;user-select:none;transition:transform .18s ease,opacity .18s ease}.datebar.swipeLeft{transform:translateX(-18px);opacity:.75}.datebar.swipeRight{transform:translateX(18px);opacity:.75}.dateTitle{color:var(--ink);font-weight:700;font-size:24px}.chev{font-size:34px}.content{padding:0 22px 20px}.dashboard{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.metricCard{border-radius:14px;min-height:190px;padding:24px 22px;display:grid;grid-template-columns:92px 1fr;align-items:center;box-shadow:var(--shadow);border:1px solid var(--line);background:var(--card)}.metricCard.red{background:linear-gradient(135deg,#fffafa 0%,#fff 70%);border-color:var(--red-border)}.metricCard.green{background:linear-gradient(135deg,#f8fff9 0%,#fff 70%);border-color:var(--green-border)}.circle{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font-size:34px}.red .circle{background:#ffe4e4;color:var(--red)}.green .circle{background:#ddf5e4;color:var(--green)}.metricLabel{text-transform:uppercase;font-weight:800;letter-spacing:.02em;font-size:18px;text-align:center}.red .metricLabel,.red .metricValue,.red .metricSub{color:var(--red)}.green .metricLabel,.green .metricValue,.green .metricSub{color:var(--green)}.metricValue{font-size:54px;font-weight:900;line-height:.95;text-align:center;margin-top:18px}.metricUnit{font-size:24px;font-weight:800;text-align:center}.metricSub{font-size:17px;text-align:center;margin-top:12px}.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);margin-top:16px;padding:20px}.panel h2{margin:0 0 14px;font-size:18px;text-transform:uppercase;letter-spacing:.02em}.divider{border-top:1px solid var(--line);margin:12px 0}.quickRow{display:grid;grid-template-columns:1fr 260px 280px;gap:18px;align-items:center;padding:10px 0}.quickRow label{font-weight:800;font-size:17px}.quickRow.red label{color:var(--red)}.quickRow.green label{color:var(--green)}input,select{width:100%;padding:14px;font-size:16px;border:1px solid #d1d5db;border-radius:8px;background:white;outline:none}input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(15,143,58,.12)}button{border:0;border-radius:8px;padding:14px 18px;font-size:16px;font-weight:800;cursor:pointer}.btnRed{color:white;background:linear-gradient(180deg,var(--red),var(--red-dark))}.btnGreen{color:white;background:linear-gradient(180deg,#16a34a,var(--green-dark))}.btnPlain{width:100%;background:#f8fafc;border:1px solid #d1d5db;color:var(--ink);text-align:left;display:flex;justify-content:space-between;align-items:center}.btnDark{background:#374151;color:white}.btnOrange{background:#f97316;color:white}.btnPurple{background:#7c3aed;color:white}.setupGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field label{display:block;font-weight:700;margin-bottom:5px;color:#374151}.unitText{color:var(--muted);font-size:13px;margin-top:4px}.summaryTable .row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:10px 0;font-size:17px}.summaryTable .row:first-child{border-top:0}.positive{color:var(--green);font-weight:800}.negative{color:var(--red);font-weight:800}.neutral{color:var(--ink);font-weight:800}.progressOuter{width:100%;height:26px;background:#e5e7eb;border-radius:999px;overflow:hidden}.progressInner{height:100%;width:0%;background:linear-gradient(90deg,#16a34a,#0f8f3a);color:white;display:grid;place-items:center;font-weight:900;font-size:13px}.logItem{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;border-top:1px solid var(--line);padding:12px 0}.logItem:first-child{border-top:0}.logIcon{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:20px}.logIcon.red{background:#ffe4e4;color:var(--red)}.logIcon.green{background:#ddf5e4;color:var(--green)}.logTitle{font-weight:800}.logTime{font-size:13px;color:var(--muted);margin-top:2px}.logKcal{font-weight:900}.logKcal.red{color:var(--red)}.logKcal.green{color:var(--green)}@media(max-width:760px){.topbar{padding:14px 16px}.menuIcon,.moreIcon{font-size:26px}.logo{width:48px;height:48px;font-size:24px}.titleBlock h1{font-size:21px}.titleBlock p{font-size:13px}.datebar{padding:16px 22px}.dateTitle{font-size:20px}.content{padding:0 14px 20px}.dashboard{gap:10px}.metricCard{grid-template-columns:1fr;min-height:160px;padding:16px 10px}.circle{width:52px;height:52px;font-size:26px;margin:auto}.metricLabel{font-size:14px;margin-top:8px}.metricValue{font-size:38px;margin-top:12px}.metricUnit{font-size:19px}.metricSub{font-size:13px;margin-top:8px}.quickRow{grid-template-columns:1fr;gap:8px;padding:12px 0}.setupGrid{grid-template-columns:1fr}.panel{padding:16px;margin-top:14px}}@media(max-width:390px){.dashboard{grid-template-columns:1fr}.metricCard{min-height:145px}}
+
+.iconButton{
+  border:0;
+  background:transparent;
+  color:var(--ink);
+  padding:4px;
+  margin:0;
+  font-size:28px;
+  line-height:1;
+  cursor:pointer;
+}
+.chev{
+  border:0;
+  background:transparent;
+  color:var(--green-dark);
+  padding:4px 12px;
+  margin:0;
+  font-size:34px;
+  line-height:1;
+  cursor:pointer;
+}
+.hidden{display:none}
+body.dark{
+  --bg:#0f172a;
+  --card:#111827;
+  --ink:#f9fafb;
+  --muted:#cbd5e1;
+  --line:#334155;
+  background:#0f172a;
+}
+body.dark .app{background:linear-gradient(180deg,#0f172a 0%,#111827 100%)}
+body.dark .topbar{background:rgba(15,23,42,.94)}
+body.dark input,body.dark select{background:#0f172a;color:#f9fafb;border-color:#475569}
+body.dark .btnPlain{background:#0f172a;color:#f9fafb;border-color:#475569}
+body.dark .metricCard,body.dark .panel{background:#111827}
+body.dark .metricCard.red{background:linear-gradient(135deg,#2a1111 0%,#111827 70%)}
+body.dark .metricCard.green{background:linear-gradient(135deg,#102416 0%,#111827 70%)}
+
 </style>
 </head>
 <body>
-<div class="container">
-<h1>Calorie Debt Tracker Pro</h1>
-<div class="card"><h2>Initial Setup</h2>
-<div class="inputRow"><label>Starting Weight</label><input id="currentWeight" type="number" step="0.1"><div class="unit">kg</div></div>
-<div class="inputRow"><label>Target Weight</label><input id="targetWeight" type="number" step="0.1"><div class="unit">kg</div></div>
-<div class="inputRow"><label>Height</label><input id="heightCm" type="number" step="0.1"><div class="unit">cm</div></div>
-<div class="inputRow"><label>Age</label><input id="ageYears" type="number"><div class="unit">years</div></div>
-<div class="inputRow"><label>Sex</label><select id="sex"><option value="male">Male</option><option value="female">Female</option></select><div class="unit"></div></div>
-<div class="inputRow"><label>Activity Level</label><select id="activityLevel"><option value="1.2">Sedentary</option><option value="1.375">Lightly active</option><option value="1.55">Moderately active</option><option value="1.725">Very active</option><option value="1.9">Extremely active</option></select><div class="unit"></div></div>
-<button class="start" onclick="startTracker()">Start Tracker</button><button class="pause" onclick="togglePause()">Pause / Resume</button><button class="reset" onclick="resetTracker()">Reset Everything</button></div>
-<div class="dashboard">
-<div class="tile"><div class="tileTitle">Remaining Calorie Debt</div><div class="tileValue" id="remainingDebt">0 kcal</div></div>
-<div class="tile"><div class="tileTitle">Estimated Current Weight</div><div class="tileValue" id="estimatedCurrentWeight">0 kg</div></div>
-<div class="tile"><div class="tileTitle">Current BMR</div><div class="tileValue" id="currentBMR">0 kcal/day</div></div>
-<div class="tile"><div class="tileTitle">Estimated Daily Burn</div><div class="tileValue" id="estimatedDailyBurn">0 kcal/day</div></div>
-<div class="tile"><div class="tileTitle">Metabolic Burn Since Start</div><div class="tileValue" id="totalMetabolicBurn">0 kcal</div></div>
-<div class="tile"><div class="tileTitle">Total Food Added</div><div class="tileValue" id="totalFood">0 kcal</div></div>
-<div class="tile"><div class="tileTitle">Total Exercise Burned</div><div class="tileValue" id="totalExercise">0 kcal</div></div>
-<div class="tile"><div class="tileTitle">Last Recorded Scale Weight</div><div class="tileValue" id="lastScaleWeight">0 kg</div></div>
-</div>
-<div class="card"><h2>Progress</h2><div class="progressOuter"><div class="progressInner" id="progressBar">0%</div></div><div class="small" id="remainingWeight"></div><div class="small" id="burnRate"></div><div class="small" id="elapsedTime"></div><div class="small" id="targetDate"></div><div class="small" id="pauseStatus"></div></div>
-<div class="card"><h2>Today’s Summary</h2><div class="small" id="todayFood"></div><div class="small" id="todayExercise"></div><div class="small" id="todayMetabolic"></div><div class="small" id="todayNet"></div></div>
-<div class="card"><h2>Record Weigh-In / Calibration</h2><div class="inputRow"><label>Current Scale Weight</label><input id="weighInInput" type="number" step="0.1" placeholder="Example: 75.2"><div class="unit">kg</div></div><button class="weigh" onclick="recordWeighIn()">Record Weigh-In</button><div class="small" id="modelVsActual"></div></div>
-<div class="card"><h2>Add Food</h2><div class="inputRow"><label>Food Name</label><input id="foodName" type="text" placeholder="Lunch, snack, dinner"><div class="unit"></div></div><div class="inputRow"><label>Calories Eaten</label><input id="foodInput" type="number"><div class="unit">kcal</div></div><button class="food" onclick="addFood()">Add Food</button></div>
-<div class="card"><h2>Add Exercise</h2><div class="inputRow"><label>Exercise Name</label><input id="exerciseName" type="text" placeholder="Walking, gym, cycling"><div class="unit"></div></div><div class="inputRow"><label>Calories Burned</label><input id="exerciseInput" type="number"><div class="unit">kcal</div></div><button class="exercise" onclick="addExercise()">Add Exercise</button></div>
-<div class="card"><h2>Manual Adjustment</h2><div class="inputRow"><label>Adjustment Note</label><input id="adjustNote" type="text" placeholder="Correction"><div class="unit"></div></div><div class="inputRow"><label>Adjustment Amount</label><input id="adjustInput" type="number" placeholder="+ or -"><div class="unit">kcal</div></div><button class="adjust" onclick="manualAdjust()">Apply Adjustment</button></div>
-<div class="card"><h2>Transaction History</h2><button class="export" onclick="exportCSV()">Export CSV</button><div id="log"></div></div>
-</div>
+<div class="app">
+<header class="topbar"><button class="iconButton" onclick="toggleSection('setupPanel')" title="Setup">☰</button><div class="logo">♨</div><div class="titleBlock"><h1>Calorie Debt Tracker</h1><p>Track today. Transform tomorrow.</p></div><button class="iconButton" onclick="toggleDarkMode()" title="Dark mode">◐</button><button class="iconButton" onclick="toggleMorePanel()" title="More">⋮</button></header>
+<div class="datebar" id="datebar" title="Swipe left or right to change date"><button type="button" class="chev" onclick="changeDay(-1); return false;" aria-label="Previous day">‹</button><span class="dateTitle" id="todayDate">Today</span><button type="button" class="chev" onclick="changeDay(1); return false;" aria-label="Next day">›</button></div>
+<main class="content">
+<section class="dashboard">
+<div class="metricCard red"><div class="circle">💼</div><div><div class="metricLabel">Total Calorie Debt</div><div class="metricValue" id="remainingDebt">-0</div><div class="metricUnit">kcal</div><div class="metricSub">Deficit to lose weight</div></div></div>
+<div class="metricCard green"><div class="circle">🔥</div><div><div class="metricLabel">Metabolic Burn</div><div class="metricValue" id="totalMetabolicBurn">+0</div><div class="metricUnit">kcal</div><div class="metricSub">BMR + activity</div></div></div>
+<div class="metricCard red"><div class="circle">🍴</div><div><div class="metricLabel">Food Intake</div><div class="metricValue" id="totalFood">-0</div><div class="metricUnit">kcal</div><div class="metricSub">Consumed total</div></div></div>
+<div class="metricCard green"><div class="circle">🏃</div><div><div class="metricLabel">Exercise Burn</div><div class="metricValue" id="totalExercise">+0</div><div class="metricUnit">kcal</div><div class="metricSub">From exercise</div></div></div>
+</section>
+<section class="panel"><h2>Quick Log</h2><div class="divider"></div><div class="quickRow red"><label>Food Intake (kcal)</label><input id="foodInput" type="number" placeholder="e.g., 500"><button class="btnRed" onclick="addFood()">🍴 Add Food</button></div><div class="quickRow green"><label>Exercise Burn (kcal)</label><input id="exerciseInput" type="number" placeholder="e.g., 300"><button class="btnGreen" onclick="addExercise()">🏃 Add Exercise</button></div><div class="quickRow"><label>Entry Name</label><input id="entryName" type="text" placeholder="Lunch, walking, snack"><button class="btnPlain" onclick="scrollToLog()">☷ View Full Log <span>›</span></button></div></section>
+<section class="panel" id="summaryPanel"><h2>Selected Day Summary</h2><div class="summaryTable"><div class="row"><span>Net Balance (Burn − Intake)</span><span id="todayNet" class="neutral">0 kcal</span></div><div class="row"><span>Basal Metabolic Rate (BMR)</span><span id="currentBMR" class="positive">+0 kcal/day</span></div><div class="row"><span>Estimated Daily Burn</span><span id="estimatedDailyBurn" class="positive">+0 kcal/day</span></div><div class="row"><span>Estimated Weight</span><span id="estimatedCurrentWeight" class="neutral">0 kg</span></div><div class="row"><span>Last Scale Weight</span><span id="lastScaleWeight" class="neutral">0 kg</span></div></div></section>
+<section class="panel" id="progressPanel"><h2>Progress</h2><div class="progressOuter"><div class="progressInner" id="progressBar">0%</div></div><div class="summaryTable" style="margin-top:12px"><div class="row"><span>Remaining Excess Weight</span><span id="remainingWeight" class="neutral">0 kg</span></div><div class="row"><span>Burn Rate</span><span id="burnRate" class="positive">+0 kcal/sec</span></div><div class="row"><span>Elapsed Time</span><span id="elapsedTime" class="neutral">0 h 0 m 0 s</span></div><div class="row"><span>Target Date</span><span id="targetDate" class="neutral">—</span></div><div class="row"><span>Status</span><span id="pauseStatus" class="neutral">Not started</span></div></div></section>
+<section class="panel" id="setupPanel"><h2>Setup</h2><div class="setupGrid"><div class="field"><label>Starting Weight</label><input id="currentWeight" type="number" step="0.1"><div class="unitText">kg</div></div><div class="field"><label>Target Weight</label><input id="targetWeight" type="number" step="0.1"><div class="unitText">kg</div></div><div class="field"><label>Height</label><input id="heightCm" type="number" step="0.1"><div class="unitText">cm</div></div><div class="field"><label>Age</label><input id="ageYears" type="number"><div class="unitText">years</div></div><div class="field"><label>Sex</label><select id="sex"><option value="male">Male</option><option value="female">Female</option></select></div><div class="field"><label>Activity Level</label><select id="activityLevel"><option value="1.2">Sedentary</option><option value="1.375">Lightly active</option><option value="1.55">Moderately active</option><option value="1.725">Very active</option><option value="1.9">Extremely active</option></select></div></div><div class="divider"></div><button class="btnGreen" onclick="startTracker()">Start Tracker</button> <button class="btnOrange" onclick="togglePause()">Pause / Resume</button> <button class="btnRed" onclick="resetTracker()">Reset Everything</button></section>
+<section class="panel hidden" id="morePanel"><h2>More Actions</h2>
+  <button class="btnPlain" onclick="jumpToToday()">Go to Today <span>›</span></button>
+  <button class="btnPlain" onclick="scrollToPanel('setupPanel')">Open Setup <span>›</span></button>
+  <button class="btnPlain" onclick="scrollToPanel('summaryPanel')">Open Summary <span>›</span></button>
+  <button class="btnPlain" onclick="scrollToLog()">Open Log <span>›</span></button>
+</section>
+<section class="panel"><h2>Record Weigh-In / Calibration</h2><div class="setupGrid"><div class="field"><label>Current Scale Weight</label><input id="weighInInput" type="number" step="0.1" placeholder="Example: 75.2"><div class="unitText">kg</div></div></div><div class="divider"></div><button class="btnGreen" onclick="recordWeighIn()">Record Weigh-In</button><div class="summaryTable" style="margin-top:12px"><div class="row"><span>Model vs Actual</span><span id="modelVsActual" class="neutral">—</span></div></div></section>
+<section class="panel"><h2>Manual Adjustment</h2><div class="setupGrid"><div class="field"><label>Adjustment Note</label><input id="adjustNote" type="text" placeholder="Correction"></div><div class="field"><label>Adjustment Amount</label><input id="adjustInput" type="number" placeholder="+ or -"><div class="unitText">kcal</div></div></div><div class="divider"></div><button class="btnPurple" onclick="manualAdjust()">Apply Adjustment</button></section>
+<section class="panel" id="logPanel"><h2>Recent Entries</h2><button class="btnDark" onclick="exportCSV()">Export CSV</button><div id="log" style="margin-top:12px"></div></section>
+</main></div>
 <script>
-const KCAL_PER_KG=7700;let timer;function save(k,v){localStorage.setItem(k,JSON.stringify(v))}function load(k,d){const v=localStorage.getItem(k);return v?JSON.parse(v):d}function todayKey(){return new Date().toISOString().slice(0,10)}function nowText(){return new Date().toLocaleString()}function calculateBMR(w,h,a,s){return s==="male"?10*w+6.25*h-5*a+5:10*w+6.25*h-5*a-161}function calculateBurnData(w){const h=load("heightCm",0),a=load("ageYears",0),s=load("sex","male"),act=Number(load("activityLevel",1.2));if(w<=0||h<=0||a<=0)return{bmr:0,dailyBurn:0};const bmr=calculateBMR(w,h,a,s);return{bmr:bmr,dailyBurn:bmr*act}}function startTracker(){const current=Number(currentWeight.value),target=Number(targetWeight.value),height=Number(heightCm.value),age=Number(ageYears.value),sexValue=sex.value,activity=Number(activityLevel.value);if(current<=0||target<=0||height<=0||age<=0){alert("Please complete weight, target weight, height, and age.");return}const startingDebt=Math.max(0,(current-target)*KCAL_PER_KG),bmr=calculateBMR(current,height,age,sexValue),dailyBurn=bmr*activity;save("currentWeight",current);save("lastRecordedWeight",current);save("targetWeight",target);save("heightCm",height);save("ageYears",age);save("sex",sexValue);save("activityLevel",activity);save("startingBMR",bmr);save("startingDailyBurn",dailyBurn);save("remainingDebt",startingDebt);save("startingDebt",startingDebt);save("totalFood",0);save("totalExercise",0);save("totalMetabolicBurn",0);save("startTime",Date.now());save("lastTime",Date.now());save("paused",false);save("logs",[]);addLog("Start","Initial setup",startingDebt,"Initial calorie debt; BMR: "+bmr.toFixed(0)+" kcal/day; estimated daily burn: "+dailyBurn.toFixed(0)+" kcal/day");update();clearInterval(timer);timer=setInterval(update,1000)}function estimatedWeightFromDebt(){return load("targetWeight",0)+load("remainingDebt",0)/KCAL_PER_KG}function adjustedDailyBurn(){return calculateBurnData(estimatedWeightFromDebt()).dailyBurn}function adjustedBMR(){return calculateBurnData(estimatedWeightFromDebt()).bmr}function burnMetabolism(){const paused=load("paused",false),now=Date.now(),last=load("lastTime",now);if(paused){save("lastTime",now);return}const burn=adjustedDailyBurn();if(burn<=0)return;const seconds=(now-last)/1000,burned=seconds*(burn/86400);let debt=load("remainingDebt",0),totalBurn=load("totalMetabolicBurn",0);debt=Math.max(0,debt-burned);totalBurn+=burned;save("remainingDebt",debt);save("totalMetabolicBurn",totalBurn);save("lastTime",now)}function recordWeighIn(){burnMetabolism();const actualWeight=Number(weighInInput.value),target=load("targetWeight",0);if(actualWeight<=0||target<=0){alert("Enter a valid scale weight.");return}const predictedWeight=estimatedWeightFromDebt(),oldDebt=load("remainingDebt",0),newDebt=Math.max(0,(actualWeight-target)*KCAL_PER_KG),debtDifference=newDebt-oldDebt,weightDifference=actualWeight-predictedWeight;save("remainingDebt",newDebt);save("lastRecordedWeight",actualWeight);addLog("Weigh-In",actualWeight.toFixed(1)+" kg",debtDifference,"Model weight: "+predictedWeight.toFixed(2)+" kg; actual weight: "+actualWeight.toFixed(2)+" kg; debt recalibrated");weighInInput.value="";modelVsActual.innerHTML="Model Predicted: "+predictedWeight.toFixed(2)+" kg | Actual: "+actualWeight.toFixed(2)+" kg | Difference: "+weightDifference.toFixed(2)+" kg";update()}function addFood(){burnMetabolism();const name=foodName.value||"Food",calories=Number(foodInput.value);if(calories<=0){alert("Enter food calories.");return}let debt=load("remainingDebt",0),total=load("totalFood",0);debt+=calories;total+=calories;save("remainingDebt",debt);save("totalFood",total);addLog("Food",name,calories,"Added to calorie debt");foodName.value="";foodInput.value="";update()}function addExercise(){burnMetabolism();const name=exerciseName.value||"Exercise",calories=Number(exerciseInput.value);if(calories<=0){alert("Enter exercise calories.");return}let debt=load("remainingDebt",0),total=load("totalExercise",0);debt=Math.max(0,debt-calories);total+=calories;save("remainingDebt",debt);save("totalExercise",total);addLog("Exercise",name,-calories,"Subtracted from calorie debt");exerciseName.value="";exerciseInput.value="";update()}function manualAdjust(){burnMetabolism();const note=adjustNote.value||"Manual adjustment",calories=Number(adjustInput.value);if(calories===0){alert("Enter a positive or negative adjustment.");return}let debt=load("remainingDebt",0);debt=Math.max(0,debt+calories);save("remainingDebt",debt);addLog("Adjustment",note,calories,"Manual correction");adjustNote.value="";adjustInput.value="";update()}function addLog(type,name,calories,note){const logs=load("logs",[]);logs.unshift({date:todayKey(),time:nowText(),type:type,name:name,calories:calories,note:note});save("logs",logs)}function togglePause(){burnMetabolism();const paused=load("paused",false);save("paused",!paused);save("lastTime",Date.now());update()}function update(){burnMetabolism();const debt=load("remainingDebt",0),startingDebt=load("startingDebt",0),totalFoodValue=load("totalFood",0),totalExerciseValue=load("totalExercise",0),totalBurnValue=load("totalMetabolicBurn",0),burn=adjustedDailyBurn(),bmr=adjustedBMR(),estimatedWeight=estimatedWeightFromDebt(),lastWeight=load("lastRecordedWeight",estimatedWeight);remainingDebt.innerHTML=debt.toFixed(0)+" kcal";estimatedCurrentWeight.innerHTML=estimatedWeight.toFixed(2)+" kg";lastScaleWeight.innerHTML=lastWeight.toFixed(2)+" kg";totalFood.innerHTML=totalFoodValue.toFixed(0)+" kcal";totalExercise.innerHTML=totalExerciseValue.toFixed(0)+" kcal";totalMetabolicBurn.innerHTML=totalBurnValue.toFixed(0)+" kcal";currentBMR.innerHTML=bmr.toFixed(0)+" kcal/day";estimatedDailyBurn.innerHTML=burn.toFixed(0)+" kcal/day";remainingWeight.innerHTML="Estimated Remaining Excess Weight: "+(debt/KCAL_PER_KG).toFixed(2)+" kg";burnRate.innerHTML="Burn Rate: "+burn.toFixed(0)+" kcal/day = "+(burn/86400).toFixed(5)+" kcal/sec";const start=load("startTime",Date.now()),elapsedSeconds=Math.floor((Date.now()-start)/1000),h=Math.floor(elapsedSeconds/3600),m=Math.floor((elapsedSeconds%3600)/60),s=elapsedSeconds%60;elapsedTime.innerHTML="Elapsed Time: "+h+" h "+m+" m "+s+" s";const progress=startingDebt>0?Math.min(100,Math.max(0,((startingDebt-debt)/startingDebt)*100)):0;progressBar.style.width=progress.toFixed(1)+"%";progressBar.innerHTML=progress.toFixed(1)+"%";if(burn>0&&debt>0){const secondsToTarget=debt/(burn/86400),date=new Date(Date.now()+secondsToTarget*1000);targetDate.innerHTML="Estimated Target Date at Current Burn Only: "+date.toLocaleDateString()}else{targetDate.innerHTML="Estimated Target Date: Reached"}pauseStatus.innerHTML=load("paused",false)?"Status: Paused":"Status: Running";updateTodaySummary();renderLog()}function updateTodaySummary(){const logs=load("logs",[]),today=todayKey();let food=0,exercise=0,adjustment=0,weighInAdjustment=0;logs.forEach(item=>{if(item.date===today){if(item.type==="Food")food+=item.calories;if(item.type==="Exercise")exercise+=Math.abs(item.calories);if(item.type==="Adjustment")adjustment+=item.calories;if(item.type==="Weigh-In")weighInAdjustment+=item.calories}});const startTime=load("startTime",Date.now()),elapsedToday=Math.min((Date.now()-new Date(today+"T00:00:00").getTime())/1000,(Date.now()-startTime)/1000),burn=adjustedDailyBurn(),estimatedTodayMetabolic=Math.max(0,elapsedToday*(burn/86400)),net=food-exercise-estimatedTodayMetabolic+adjustment+weighInAdjustment;todayFood.innerHTML="Today’s Food Added: +"+food.toFixed(0)+" kcal";todayExercise.innerHTML="Today’s Exercise Burned: -"+exercise.toFixed(0)+" kcal";todayMetabolic.innerHTML="Today’s Estimated Burn: -"+estimatedTodayMetabolic.toFixed(0)+" kcal";todayNet.innerHTML="Today’s Net Change Including Weigh-In Calibration: "+net.toFixed(0)+" kcal"}function renderLog(){const logs=load("logs",[]);log.innerHTML="";logs.forEach(item=>{const sign=item.calories>=0?"+":"";log.innerHTML+=`<div class="logItem"><strong>${item.time}</strong><br>${item.type}: ${item.name} ${sign}${Number(item.calories).toFixed(0)} kcal<br><small>${item.note}</small></div>`})}function exportCSV(){const logs=load("logs",[]);let csv="Date,Time,Type,Name,Calories,Note\n";logs.forEach(item=>{csv+=`"${item.date}","${item.time}","${item.type}","${item.name}","${item.calories}","${item.note}"\n`});const blob=new Blob([csv],{type:"text/csv"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="calorie_debt_log.csv";a.click();URL.revokeObjectURL(url)}function resetTracker(){if(!confirm("Reset everything?"))return;localStorage.clear();clearInterval(timer);location.reload()}window.onload=function(){currentWeight.value=load("currentWeight","");targetWeight.value=load("targetWeight","");heightCm.value=load("heightCm","");ageYears.value=load("ageYears","");sex.value=load("sex","male");activityLevel.value=load("activityLevel",1.2);if(load("remainingDebt",null)!==null){update();timer=setInterval(update,1000)}};if("serviceWorker" in navigator){navigator.serviceWorker.register("service-worker.js")}
+const KCAL_PER_KG = 7700;
+let timer;
+let selectedDate = todayKey();
+
+function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function load(k,d){const v=localStorage.getItem(k);return v?JSON.parse(v):d}
+function pad2(n){return String(n).padStart(2,"0")}
+function todayKey(date=new Date()){
+  return date.getFullYear()+"-"+pad2(date.getMonth()+1)+"-"+pad2(date.getDate());
+}
+function dateFromKey(key){
+  const p = key.split("-").map(Number);
+  return new Date(p[0], p[1]-1, p[2]);
+}
+function nowText(){return new Date().toLocaleString()}
+function fmt(n){return Number(n||0).toLocaleString(undefined,{maximumFractionDigits:0})}
+function signed(n,kind){const value=Math.abs(Number(n||0));return(kind==="negative"?"-":"+")+fmt(value)}
+function setText(id,text){const el=document.getElementById(id);if(el)el.textContent=text}
+function setClassBySign(id,value){const el=document.getElementById(id);if(!el)return;el.classList.remove("positive","negative","neutral");el.classList.add(value>0?"positive":value<0?"negative":"neutral")}
+
+function selectedDateObj(){
+  return dateFromKey(selectedDate);
+}
+
+function displaySelectedDate(){
+  const d = dateFromKey(selectedDate);
+  const label = d.toLocaleDateString(undefined,{
+    weekday:"short",
+    month:"short",
+    day:"numeric",
+    year:"numeric"
+  });
+  setText("todayDate", label);
+}
+
+function changeDay(delta){
+  const d = dateFromKey(selectedDate);
+  d.setDate(d.getDate() + delta);
+  selectedDate = todayKey(d);
+  save("selectedDate", selectedDate);
+  displaySelectedDate();
+  updateTodaySummary();
+  renderLog();
+}
+
+function jumpToToday(){
+  selectedDate = todayKey();
+  save("selectedDate", selectedDate);
+  displaySelectedDate();
+  updateTodaySummary();
+  renderLog();
+}
+
+function scrollToPanel(id){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:"smooth"});
+}
+
+function scrollToLog(){
+  scrollToPanel("logPanel");
+}
+
+function toggleSection(id){
+  const el = document.getElementById(id);
+  if(!el)return;
+  el.scrollIntoView({behavior:"smooth"});
+}
+
+function toggleMorePanel(){
+  const el = document.getElementById("morePanel");
+  if(!el)return;
+  el.classList.toggle("hidden");
+  if(!el.classList.contains("hidden")) el.scrollIntoView({behavior:"smooth"});
+}
+
+function toggleDarkMode(){
+  document.body.classList.toggle("dark");
+  save("darkMode", document.body.classList.contains("dark"));
+}
+
+function calculateBMR(w,h,a,s){
+  return s==="male"?10*w+6.25*h-5*a+5:10*w+6.25*h-5*a-161;
+}
+
+function calculateBurnData(w){
+  const h=load("heightCm",0),a=load("ageYears",0),s=load("sex","male"),act=Number(load("activityLevel",1.2));
+  if(w<=0||h<=0||a<=0)return{bmr:0,dailyBurn:0};
+  const bmr=calculateBMR(w,h,a,s);
+  return{bmr:bmr,dailyBurn:bmr*act};
+}
+
+function startTracker(){
+  const current=Number(currentWeight.value),target=Number(targetWeight.value),height=Number(heightCm.value),age=Number(ageYears.value),sexValue=sex.value,activity=Number(activityLevel.value);
+  if(current<=0||target<=0||height<=0||age<=0){alert("Please complete weight, target weight, height, and age.");return}
+  const startingDebt=Math.max(0,(current-target)*KCAL_PER_KG),bmr=calculateBMR(current,height,age,sexValue),dailyBurn=bmr*activity;
+
+  save("currentWeight",current);save("lastRecordedWeight",current);save("targetWeight",target);
+  save("heightCm",height);save("ageYears",age);save("sex",sexValue);save("activityLevel",activity);
+  save("startingBMR",bmr);save("startingDailyBurn",dailyBurn);save("remainingDebt",startingDebt);save("startingDebt",startingDebt);
+  save("totalFood",0);save("totalExercise",0);save("totalMetabolicBurn",0);save("startTime",Date.now());save("lastTime",Date.now());save("paused",false);save("logs",[]);
+
+  addLog("Start","Initial setup",-startingDebt,"Initial calorie debt; BMR: "+bmr.toFixed(0)+" kcal/day; estimated daily burn: "+dailyBurn.toFixed(0)+" kcal/day");
+  update();clearInterval(timer);timer=setInterval(update,1000);
+}
+
+function estimatedWeightFromDebt(){return load("targetWeight",0)+load("remainingDebt",0)/KCAL_PER_KG}
+function adjustedDailyBurn(){return calculateBurnData(estimatedWeightFromDebt()).dailyBurn}
+function adjustedBMR(){return calculateBurnData(estimatedWeightFromDebt()).bmr}
+
+function burnMetabolism(){
+  const paused=load("paused",false),now=Date.now(),last=load("lastTime",now);
+  if(paused){save("lastTime",now);return}
+  const burn=adjustedDailyBurn();if(burn<=0)return;
+  const seconds=(now-last)/1000,burned=seconds*(burn/86400);
+  let debt=load("remainingDebt",0),totalBurn=load("totalMetabolicBurn",0);
+  debt=Math.max(0,debt-burned);totalBurn+=burned;
+  save("remainingDebt",debt);save("totalMetabolicBurn",totalBurn);save("lastTime",now);
+}
+
+function addFood(){
+  burnMetabolism();
+  const name=entryName.value||"Food",calories=Number(foodInput.value);
+  if(calories<=0){alert("Enter food calories.");return}
+  let debt=load("remainingDebt",0),total=load("totalFood",0);
+  debt+=calories;total+=calories;
+  save("remainingDebt",debt);save("totalFood",total);
+  addLog("Food",name,-calories,"Food intake added to calorie debt");
+  entryName.value="";foodInput.value="";update();
+}
+
+function addExercise(){
+  burnMetabolism();
+  const name=entryName.value||"Exercise",calories=Number(exerciseInput.value);
+  if(calories<=0){alert("Enter exercise calories.");return}
+  let debt=load("remainingDebt",0),total=load("totalExercise",0);
+  debt=Math.max(0,debt-calories);total+=calories;
+  save("remainingDebt",debt);save("totalExercise",total);
+  addLog("Exercise",name,calories,"Exercise burn subtracted from calorie debt");
+  entryName.value="";exerciseInput.value="";update();
+}
+
+function recordWeighIn(){
+  burnMetabolism();
+  const actualWeight=Number(weighInInput.value),target=load("targetWeight",0);
+  if(actualWeight<=0||target<=0){alert("Enter a valid scale weight.");return}
+  const predictedWeight=estimatedWeightFromDebt(),oldDebt=load("remainingDebt",0),newDebt=Math.max(0,(actualWeight-target)*KCAL_PER_KG),debtDifference=newDebt-oldDebt,weightDifference=actualWeight-predictedWeight;
+  save("remainingDebt",newDebt);save("lastRecordedWeight",actualWeight);
+  addLog("Weigh-In",actualWeight.toFixed(1)+" kg",-debtDifference,"Model weight: "+predictedWeight.toFixed(2)+" kg; actual: "+actualWeight.toFixed(2)+" kg; debt recalibrated");
+  weighInInput.value="";
+  setText("modelVsActual",predictedWeight.toFixed(2)+" kg → "+actualWeight.toFixed(2)+" kg ("+weightDifference.toFixed(2)+" kg)");
+  update();
+}
+
+function manualAdjust(){
+  burnMetabolism();
+  const note=adjustNote.value||"Manual adjustment",calories=Number(adjustInput.value);
+  if(calories===0){alert("Enter a positive or negative adjustment.");return}
+  let debt=load("remainingDebt",0);
+  debt=Math.max(0,debt+calories);
+  save("remainingDebt",debt);
+  addLog("Adjustment",note,-calories,"Manual correction");
+  adjustNote.value="";adjustInput.value="";update();
+}
+
+function addLog(type,name,calories,note){
+  const logs=load("logs",[]);
+  logs.unshift({date:todayKey(),time:nowText(),type:type,name:name,calories:calories,note:note});
+  save("logs",logs);
+}
+
+function togglePause(){
+  burnMetabolism();
+  const paused=load("paused",false);
+  save("paused",!paused);save("lastTime",Date.now());update();
+}
+
+function update(){
+  burnMetabolism();
+  const debt=load("remainingDebt",0),startingDebt=load("startingDebt",0),food=load("totalFood",0),exercise=load("totalExercise",0),metabolic=load("totalMetabolicBurn",0);
+  const burn=adjustedDailyBurn(),bmr=adjustedBMR(),estimatedWeight=estimatedWeightFromDebt(),lastWeight=load("lastRecordedWeight",estimatedWeight);
+
+  setText("remainingDebt",signed(debt,"negative"));
+  setText("totalFood",signed(food,"negative"));
+  setText("totalExercise",signed(exercise,"positive"));
+  setText("totalMetabolicBurn",signed(metabolic,"positive"));
+  setText("currentBMR","+"+fmt(bmr)+" kcal/day");
+  setText("estimatedDailyBurn","+"+fmt(burn)+" kcal/day");
+  setText("estimatedCurrentWeight",estimatedWeight.toFixed(2)+" kg");
+  setText("lastScaleWeight",lastWeight.toFixed(2)+" kg");
+  setText("remainingWeight",(debt/KCAL_PER_KG).toFixed(2)+" kg");
+  setText("burnRate","+"+(burn/86400).toFixed(5)+" kcal/sec");
+
+  const start=load("startTime",Date.now()),elapsedSeconds=Math.floor((Date.now()-start)/1000);
+  const h=Math.floor(elapsedSeconds/3600),m=Math.floor((elapsedSeconds%3600)/60),s=elapsedSeconds%60;
+  setText("elapsedTime",h+" h "+m+" m "+s+" s");
+
+  const progress=startingDebt>0?Math.min(100,Math.max(0,((startingDebt-debt)/startingDebt)*100)):0;
+  progressBar.style.width=progress.toFixed(1)+"%";progressBar.textContent=progress.toFixed(1)+"%";
+
+  if(burn>0&&debt>0){
+    const secondsToTarget=debt/(burn/86400),date=new Date(Date.now()+secondsToTarget*1000);
+    setText("targetDate",date.toLocaleDateString());
+  }else setText("targetDate","Reached");
+
+  setText("pauseStatus",load("paused",false)?"Paused":"Running");
+  updateTodaySummary();renderLog();
+}
+
+function updateTodaySummary(){
+  const logs=load("logs",[]),chosen=selectedDate;
+  let food=0,exercise=0,adjustment=0,weigh=0;
+  logs.forEach(item=>{
+    if(item.date===chosen){
+      if(item.type==="Food")food+=Math.abs(item.calories);
+      if(item.type==="Exercise")exercise+=Math.abs(item.calories);
+      if(item.type==="Adjustment")adjustment+=item.calories;
+      if(item.type==="Weigh-In")weigh+=item.calories;
+    }
+  });
+
+  let metabolicForDay = 0;
+  if(chosen === todayKey()){
+    const startTime=load("startTime",Date.now());
+    const elapsedToday=Math.min((Date.now()-dateFromKey(chosen).getTime())/1000,(Date.now()-startTime)/1000);
+    const burn=adjustedDailyBurn();
+    metabolicForDay=Math.max(0,elapsedToday*(burn/86400));
+  }
+
+  const net=exercise+metabolicForDay-food+adjustment+weigh;
+  setText("todayNet",(net>=0?"+":"-")+fmt(Math.abs(net))+" kcal");
+  setClassBySign("todayNet",net);
+}
+
+function renderLog(){
+  const logs=load("logs",[]);
+  const box=document.getElementById("log");
+  box.innerHTML="";
+  const filtered=logs.filter(item=>item.date===selectedDate);
+
+  if(filtered.length===0){
+    box.innerHTML='<div class="logItem"><div class="logIcon green">ℹ</div><div><div class="logTitle">No entries for this date</div><div class="logTime">Use the arrows to check another day.</div></div><div></div></div>';
+    return;
+  }
+
+  filtered.slice(0,20).forEach(item=>{
+    const isPositive=item.calories>=0,color=isPositive?"green":"red",icon=item.type==="Food"?"🍴":item.type==="Exercise"?"🏃":item.type==="Weigh-In"?"⚖":"•",amount=(isPositive?"+":"-")+fmt(Math.abs(item.calories))+" kcal";
+    box.innerHTML+=`<div class="logItem"><div class="logIcon ${color}">${icon}</div><div><div class="logTitle ${color==="green"?"positive":"negative"}">${item.type}: ${item.name}</div><div class="logTime">${item.time}</div></div><div class="logKcal ${color}">${amount}</div></div>`;
+  });
+}
+
+function exportCSV(){
+  const logs=load("logs",[]);
+  let csv="Date,Time,Type,Name,Calories,Note\n";
+  logs.forEach(item=>{csv+=`"${item.date}","${item.time}","${item.type}","${item.name}","${item.calories}","${item.note}"\n`});
+  const blob=new Blob([csv],{type:"text/csv"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="calorie_debt_log.csv";a.click();URL.revokeObjectURL(url);
+}
+
+function resetTracker(){
+  if(!confirm("Reset everything?"))return;
+  localStorage.clear();clearInterval(timer);location.reload();
+}
+
+window.onload=function(){
+  if(load("darkMode",false)) document.body.classList.add("dark");
+  selectedDate = load("selectedDate", todayKey());
+  displaySelectedDate();
+
+  currentWeight.value=load("currentWeight","");
+  targetWeight.value=load("targetWeight","");
+  heightCm.value=load("heightCm","");
+  ageYears.value=load("ageYears","");
+  sex.value=load("sex","male");
+  activityLevel.value=load("activityLevel",1.2);
+
+  if(load("remainingDebt",null)!==null){update();timer=setInterval(update,1000)}
+  else{updateTodaySummary();renderLog()}
+};
+
+
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+function setupDateSwipe(){
+  const bar = document.getElementById("datebar");
+  if(!bar) return;
+
+  bar.addEventListener("touchstart", function(e){
+    if(!e.touches || e.touches.length === 0) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, {passive:true});
+
+  bar.addEventListener("touchmove", function(e){
+    if(!e.touches || e.touches.length === 0) return;
+    const dx = e.touches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 25){
+      bar.classList.toggle("swipeRight", dx > 0);
+      bar.classList.toggle("swipeLeft", dx < 0);
+    }
+  }, {passive:true});
+
+  bar.addEventListener("touchend", function(e){
+    bar.classList.remove("swipeLeft","swipeRight");
+    if(!e.changedTouches || e.changedTouches.length === 0) return;
+
+    touchEndX = e.changedTouches[0].clientX;
+    touchEndY = e.changedTouches[0].clientY;
+
+    const dx = touchEndX - touchStartX;
+    const dy = touchEndY - touchStartY;
+
+    if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5){
+      if(dx < 0) changeDay(1);
+      else changeDay(-1);
+    }
+  }, {passive:true});
+}
+
+setupDateSwipe();
+if("serviceWorker" in navigator){navigator.serviceWorker.register("service-worker.js")}
 </script>
 </body>
 </html>
