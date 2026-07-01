@@ -51,45 +51,38 @@ body.dark .metricCard.red{background:linear-gradient(135deg,#2a1111 0%,#111827 7
 body.dark .metricCard.green{background:linear-gradient(135deg,#102416 0%,#111827 70%)}
 
 
-/* Android-first typography and spacing */
-@media(max-width:760px){
-  body{font-size:14px;-webkit-text-size-adjust:100%;}
-  .app{max-width:430px;width:100%;}
-  .topbar{padding:10px 12px;gap:10px;}
-  .iconButton{font-size:22px;padding:3px;}
-  .logo{width:40px;height:40px;font-size:20px;border-radius:10px;}
-  .titleBlock h1{font-size:18px;}
-  .titleBlock p{font-size:12px;}
-  .datebar{padding:12px 14px;}
-  .dateTitle{font-size:17px;}
-  .chev{font-size:28px;padding:2px 8px;}
-  .content{padding:0 10px 18px;}
-  .dashboard{grid-template-columns:repeat(2,1fr);gap:8px;}
-  .metricCard{min-height:132px;padding:12px 8px;border-radius:12px;}
-  .circle{width:42px;height:42px;font-size:21px;}
-  .metricLabel{font-size:11px;line-height:1.15;margin-top:6px;}
-  .metricValue{font-size:29px;margin-top:8px;line-height:1;}
-  .metricUnit{font-size:14px;}
-  .metricSub{font-size:11px;margin-top:6px;}
-  .panel{padding:13px;margin-top:10px;border-radius:12px;}
-  .panel h2{font-size:14px;margin-bottom:10px;}
-  .quickRow{gap:7px;padding:10px 0;}
-  .quickRow label,.summaryTable .row{font-size:14px;}
-  input,select{font-size:15px;padding:11px;}
-  button{font-size:14px;padding:11px 13px;}
-  .logItem{grid-template-columns:34px 1fr auto;gap:9px;padding:10px 0;}
-  .logIcon{width:31px;height:31px;font-size:16px;}
-  .logTitle{font-size:14px;}
-  .logTime{font-size:11px;}
-  .logKcal{font-size:13px;}
-  .progressOuter{height:22px;}
+
+/* Android phone refinement */
+@media(max-width:480px){
+  body{font-size:14px}
+  .app{max-width:480px}
+  .topbar{gap:9px;padding:10px 12px}
+  .iconButton{font-size:24px}
+  .logo{width:42px;height:42px;font-size:21px;border-radius:10px}
+  .titleBlock h1{font-size:18px}
+  .titleBlock p{font-size:12px}
+  .datebar{padding:12px 14px}
+  .dateTitle{font-size:17px}
+  .chev{font-size:30px;padding:2px 10px}
+  .content{padding:0 10px 16px}
+  .dashboard{grid-template-columns:repeat(2,1fr);gap:8px}
+  .metricCard{min-height:132px;padding:12px 8px;border-radius:12px}
+  .circle{width:42px;height:42px;font-size:22px}
+  .metricLabel{font-size:11px;line-height:1.2}
+  .metricValue{font-size:30px;margin-top:8px}
+  .metricUnit{font-size:14px}
+  .metricSub{font-size:11px;margin-top:6px}
+  .panel{padding:13px;margin-top:10px;border-radius:12px}
+  .panel h2{font-size:14px;margin-bottom:10px}
+  .quickRow label,.summaryTable .row{font-size:14px}
+  input,select,button{font-size:15px;padding:12px}
+  .logItem{grid-template-columns:36px 1fr auto;gap:8px}
+  .logIcon{width:32px;height:32px;font-size:17px}
 }
-@media(max-width:390px){
-  .dashboard{grid-template-columns:repeat(2,1fr);}
-  .metricValue{font-size:25px;}
-  .metricCard{min-height:124px;padding:10px 6px;}
-  .metricLabel{font-size:10px;}
-  .metricSub{display:none;}
+@media(max-width:340px){
+  .metricValue{font-size:26px}
+  .metricLabel{font-size:10px}
+  .metricSub{display:none}
 }
 
 </style>
@@ -107,7 +100,7 @@ body.dark .metricCard.green{background:linear-gradient(135deg,#102416 0%,#111827
 </section>
 <section class="panel"><h2>Quick Log</h2><div class="divider"></div><div class="quickRow red"><label>Food Intake (kcal)</label><input id="foodInput" type="number" placeholder="e.g., 500"><button class="btnRed" onclick="addFood()">🍴 Add Food</button></div><div class="quickRow green"><label>Exercise Burn (kcal)</label><input id="exerciseInput" type="number" placeholder="e.g., 300"><button class="btnGreen" onclick="addExercise()">🏃 Add Exercise</button></div><div class="quickRow"><label>Entry Name</label><input id="entryName" type="text" placeholder="Lunch, walking, snack"><button class="btnPlain" onclick="scrollToLog()">☷ View Full Log <span>›</span></button></div></section>
 <section class="panel" id="summaryPanel"><h2>Selected Day Summary</h2><div class="summaryTable"><div class="row"><span>Net Balance (Burn − Intake)</span><span id="todayNet" class="neutral">0 kcal</span></div><div class="row"><span>Basal Metabolic Rate (BMR)</span><span id="currentBMR" class="positive">+0 kcal/day</span></div><div class="row"><span>Estimated Daily Burn</span><span id="estimatedDailyBurn" class="positive">+0 kcal/day</span></div><div class="row"><span>Estimated Weight</span><span id="estimatedCurrentWeight" class="neutral">0 kg</span></div><div class="row"><span>Last Scale Weight</span><span id="lastScaleWeight" class="neutral">0 kg</span></div></div></section>
-<section class="panel" id="progressPanel"><h2>Progress</h2><div class="progressOuter"><div class="progressInner" id="progressBar">0%</div></div><div class="summaryTable" style="margin-top:12px"><div class="row"><span>Remaining Excess Weight</span><span id="remainingWeight" class="neutral">0 kg</span></div><div class="row"><span>Burn Rate</span><span id="burnRate" class="positive">+0 kcal/sec</span></div><div class="row"><span>Accumulated Metabolic Burn</span><span id="accumMetabolicBurn" class="positive">+0 kcal</span></div><div class="row"><span>Accumulated Exercise Burn</span><span id="accumExerciseBurn" class="positive">+0 kcal</span></div><div class="row"><span>Accumulated Food Intake</span><span id="accumFoodIntake" class="negative">-0 kcal</span></div><div class="row"><span>Elapsed Time</span><span id="elapsedTime" class="neutral">0 h 0 m 0 s</span></div><div class="row"><span>Target Date</span><span id="targetDate" class="neutral">—</span></div><div class="row"><span>Status</span><span id="pauseStatus" class="neutral">Not started</span></div></div></section>
+<section class="panel" id="progressPanel"><h2>Progress</h2><div class="progressOuter"><div class="progressInner" id="progressBar">0%</div></div><div class="summaryTable" style="margin-top:12px"><div class="row"><span>Remaining Excess Weight</span><span id="remainingWeight" class="neutral">0 kg</span></div><div class="row"><span>Burn Rate</span><span id="burnRate" class="positive">+0 kcal/sec</span></div><div class="row"><span>Elapsed Time</span><span id="elapsedTime" class="neutral">0 h 0 m 0 s</span></div><div class="row"><span>Target Date</span><span id="targetDate" class="neutral">—</span></div><div class="row"><span>Status</span><span id="pauseStatus" class="neutral">Not started</span></div><div class="row"><span>Total Accumulated Metabolic Burn</span><span id="accumulatedMetabolicBurn" class="positive">+0 kcal</span></div><div class="row"><span>Total Accumulated Exercise Burn</span><span id="accumulatedExerciseBurn" class="positive">+0 kcal</span></div><div class="row"><span>Total Accumulated Food Intake</span><span id="accumulatedFoodIntake" class="negative">-0 kcal</span></div></div></section>
 <section class="panel" id="setupPanel"><h2>Setup</h2><div class="setupGrid"><div class="field"><label>Starting Weight</label><input id="currentWeight" type="number" step="0.1"><div class="unitText">kg</div></div><div class="field"><label>Target Weight</label><input id="targetWeight" type="number" step="0.1"><div class="unitText">kg</div></div><div class="field"><label>Height</label><input id="heightCm" type="number" step="0.1"><div class="unitText">cm</div></div><div class="field"><label>Age</label><input id="ageYears" type="number"><div class="unitText">years</div></div><div class="field"><label>Sex</label><select id="sex"><option value="male">Male</option><option value="female">Female</option></select></div><div class="field"><label>Activity Level</label><select id="activityLevel"><option value="1.2">Sedentary</option><option value="1.375">Lightly active</option><option value="1.55">Moderately active</option><option value="1.725">Very active</option><option value="1.9">Extremely active</option></select></div></div><div class="divider"></div><button class="btnGreen" onclick="startTracker()">Start Tracker</button> <button class="btnOrange" onclick="togglePause()">Pause / Resume</button> <button class="btnRed" onclick="resetTracker()">Reset Everything</button></section>
 <section class="panel hidden" id="morePanel"><h2>More Actions</h2>
   <button class="btnPlain" onclick="jumpToToday()">Go to Today <span>›</span></button>
@@ -123,6 +116,7 @@ body.dark .metricCard.green{background:linear-gradient(135deg,#102416 0%,#111827
 const KCAL_PER_KG = 7700;
 let timer;
 let selectedDate = todayKey();
+let rolloverBusy = false;
 
 function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
 function load(k,d){const v=localStorage.getItem(k);return v?JSON.parse(v):d}
@@ -134,252 +128,342 @@ function dateFromKey(key){
   const p = key.split("-").map(Number);
   return new Date(p[0], p[1]-1, p[2]);
 }
-function endOfDay(dateKey){
-  const d = dateFromKey(dateKey);
-  d.setDate(d.getDate()+1);
-  return d;
+function startOfDayMs(date=new Date()){
+  const d = new Date(date);
+  d.setHours(0,0,0,0);
+  return d.getTime();
 }
-function nowText(date=new Date()){return date.toLocaleString()}
+function nextDayKey(key){
+  const d = dateFromKey(key);
+  d.setDate(d.getDate()+1);
+  return todayKey(d);
+}
+function nowText(){return new Date().toLocaleString()}
 function fmt(n){return Number(n||0).toLocaleString(undefined,{maximumFractionDigits:0})}
 function signed(n,kind){const value=Math.abs(Number(n||0));return(kind==="negative"?"-":"+")+fmt(value)}
 function setText(id,text){const el=document.getElementById(id);if(el)el.textContent=text}
 function setClassBySign(id,value){const el=document.getElementById(id);if(!el)return;el.classList.remove("positive","negative","neutral");el.classList.add(value>0?"positive":value<0?"negative":"neutral")}
 
-function getDailyStats(){return load("dailyStats",{})}
-function saveDailyStats(stats){save("dailyStats",stats)}
-function blankDay(debtStart){return{food:0,exercise:0,metabolic:0,debtStart:Number(debtStart||0),debtEnd:null,rolloverLogged:false}}
-function ensureDay(dateKey){
-  const stats=getDailyStats();
-  if(!stats[dateKey]){
-    stats[dateKey]=blankDay(load("remainingDebt",0));
-    saveDailyStats(stats);
-  }
-  return stats[dateKey];
-}
-function updateDay(dateKey, updater){
-  const stats=getDailyStats();
-  if(!stats[dateKey]) stats[dateKey]=blankDay(load("remainingDebt",0));
-  updater(stats[dateKey]);
-  saveDailyStats(stats);
-}
-function selectedDateObj(){return dateFromKey(selectedDate)}
+function selectedDateObj(){ return dateFromKey(selectedDate); }
 
 function displaySelectedDate(){
   const d = dateFromKey(selectedDate);
   const label = d.toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric",year:"numeric"});
   setText("todayDate", label);
 }
+
 function changeDay(delta){
-  burnMetabolism();
   const d = dateFromKey(selectedDate);
   d.setDate(d.getDate() + delta);
   selectedDate = todayKey(d);
+  save("selectedDate", selectedDate);
   displaySelectedDate();
   updateTodaySummary();
   renderLog();
 }
-function jumpToToday(){
-  burnMetabolism();
-  selectedDate = todayKey();
-  displaySelectedDate();
-  updateTodaySummary();
-  renderLog();
-}
-function scrollToPanel(id){const el=document.getElementById(id);if(el) el.scrollIntoView({behavior:"smooth"})}
-function scrollToLog(){scrollToPanel("logPanel")}
-function toggleSection(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth"})}
-function toggleMorePanel(){const el=document.getElementById("morePanel");if(!el)return;el.classList.toggle("hidden");if(!el.classList.contains("hidden")) el.scrollIntoView({behavior:"smooth"})}
-function toggleDarkMode(){document.body.classList.toggle("dark");save("darkMode", document.body.classList.contains("dark"))}
 
-function calculateBMR(w,h,a,s){return s==="male"?10*w+6.25*h-5*a+5:10*w+6.25*h-5*a-161}
+function jumpToToday(){
+  selectedDate = todayKey();
+  save("selectedDate", selectedDate);
+  displaySelectedDate();
+  updateTodaySummary();
+  renderLog();
+}
+
+function scrollToPanel(id){ const el = document.getElementById(id); if(el) el.scrollIntoView({behavior:"smooth"}); }
+function scrollToLog(){ scrollToPanel("logPanel"); }
+function toggleSection(id){ const el = document.getElementById(id); if(el) el.scrollIntoView({behavior:"smooth"}); }
+function toggleMorePanel(){ const el = document.getElementById("morePanel"); if(!el)return; el.classList.toggle("hidden"); if(!el.classList.contains("hidden")) el.scrollIntoView({behavior:"smooth"}); }
+function toggleDarkMode(){ document.body.classList.toggle("dark"); save("darkMode", document.body.classList.contains("dark")); }
+
+function calculateBMR(w,h,a,s){ return s==="male"?10*w+6.25*h-5*a+5:10*w+6.25*h-5*a-161; }
 function calculateBurnData(w){
   const h=load("heightCm",0),a=load("ageYears",0),s=load("sex","male"),act=Number(load("activityLevel",1.2));
   if(w<=0||h<=0||a<=0)return{bmr:0,dailyBurn:0};
   const bmr=calculateBMR(w,h,a,s);
   return{bmr:bmr,dailyBurn:bmr*act};
 }
-function estimatedWeightFromDebt(){return load("targetWeight",0)+load("remainingDebt",0)/KCAL_PER_KG}
-function adjustedDailyBurn(){return calculateBurnData(estimatedWeightFromDebt()).dailyBurn}
-function adjustedBMR(){return calculateBurnData(estimatedWeightFromDebt()).bmr}
 
-function addLog(type,name,calories,note,dateKey=todayKey(),timeValue=nowText()){
-  const logs=load("logs",[]);
-  logs.unshift({date:dateKey,time:timeValue,type:type,name:name,calories:calories,note:note});
-  save("logs",logs);
-}
-function finalizeDay(dateKey, boundaryDate){
-  updateDay(dateKey, day=>{
-    if(day.rolloverLogged) return;
-    day.debtEnd = load("remainingDebt",0);
-    day.rolloverLogged = true;
-    addLog("Daily Close","Midnight calorie debt",-day.debtEnd,"Automatic log at date change / 12 midnight",dateKey,nowText(boundaryDate));
-  });
-  const newKey=todayKey(boundaryDate);
-  updateDay(newKey, day=>{ if(day.debtStart===undefined || day.debtStart===null) day.debtStart=load("remainingDebt",0); });
+function resetDailyTotals(){
+  save("totalFood",0);
+  save("totalExercise",0);
+  save("totalMetabolicBurn",0);
 }
 
-function burnMetabolism(){
-  const paused=load("paused",false),now=Date.now(),last=load("lastTime",now);
-  if(paused){save("lastTime",now);return}
-  const burn=adjustedDailyBurn();
-  if(burn<=0){save("lastTime",now);return}
-  let cursor=last;
-  let debt=load("remainingDebt",0);
-  let accum=load("totalMetabolicBurnAccum",load("totalMetabolicBurn",0));
-  while(cursor < now){
-    const currentDateKey=todayKey(new Date(cursor));
-    ensureDay(currentDateKey);
-    const nextMidnight=endOfDay(currentDateKey).getTime();
-    const segmentEnd=Math.min(now,nextMidnight);
-    const seconds=Math.max(0,(segmentEnd-cursor)/1000);
-    const burned=seconds*(burn/86400);
-    debt=Math.max(0,debt-burned);
-    accum+=burned;
-    updateDay(currentDateKey, day=>{day.metabolic+=burned;day.debtEnd=debt});
-    cursor=segmentEnd;
-    if(cursor===nextMidnight && cursor<now){finalizeDay(currentDateKey,new Date(cursor))}
-  }
-  save("remainingDebt",debt);save("totalMetabolicBurnAccum",accum);save("totalMetabolicBurn",accum);save("lastTime",now);
+function ensureAccumulatedKeys(){
+  if(load("accumulatedFood",null)===null) save("accumulatedFood", load("totalFood",0));
+  if(load("accumulatedExercise",null)===null) save("accumulatedExercise", load("totalExercise",0));
+  if(load("accumulatedMetabolicBurn",null)===null) save("accumulatedMetabolicBurn", load("totalMetabolicBurn",0));
 }
 
 function startTracker(){
   const current=Number(currentWeight.value),target=Number(targetWeight.value),height=Number(heightCm.value),age=Number(ageYears.value),sexValue=sex.value,activity=Number(activityLevel.value);
   if(current<=0||target<=0||height<=0||age<=0){alert("Please complete weight, target weight, height, and age.");return}
   const startingDebt=Math.max(0,(current-target)*KCAL_PER_KG),bmr=calculateBMR(current,height,age,sexValue),dailyBurn=bmr*activity;
-  const today=todayKey();
+  const midnight = startOfDayMs();
+
   save("currentWeight",current);save("lastRecordedWeight",current);save("targetWeight",target);
   save("heightCm",height);save("ageYears",age);save("sex",sexValue);save("activityLevel",activity);
   save("startingBMR",bmr);save("startingDailyBurn",dailyBurn);save("remainingDebt",startingDebt);save("startingDebt",startingDebt);
-  save("totalFoodAccum",0);save("totalExerciseAccum",0);save("totalMetabolicBurnAccum",0);
-  save("totalFood",0);save("totalExercise",0);save("totalMetabolicBurn",0);
-  save("startTime",Date.now());save("lastTime",Date.now());save("paused",false);save("logs",[]);save("dailyStats",{[today]:blankDay(startingDebt)});
-  selectedDate=today;displaySelectedDate();
-  addLog("Start","Initial setup",-startingDebt,"Initial calorie debt; BMR: "+bmr.toFixed(0)+" kcal/day; estimated daily burn: "+dailyBurn.toFixed(0)+" kcal/day",today);
+  resetDailyTotals();
+  save("accumulatedFood",0);save("accumulatedExercise",0);save("accumulatedMetabolicBurn",0);
+  save("startTime",midnight);save("lastTime",midnight);save("paused",false);save("logs",[]);
+  save("lastActiveDate",todayKey());
+  selectedDate = todayKey(); save("selectedDate", selectedDate); displaySelectedDate();
+
+  addLog("Start","Initial setup",-startingDebt,"Initial calorie debt; BMR: "+bmr.toFixed(0)+" kcal/day; estimated daily burn: "+dailyBurn.toFixed(0)+" kcal/day");
+  addLog("System","Retroactive midnight start",0,"Metabolic burn is calculated from 12:00 AM today so the day is complete.");
   update();clearInterval(timer);timer=setInterval(update,1000);
 }
 
+function estimatedWeightFromDebt(){return load("targetWeight",0)+load("remainingDebt",0)/KCAL_PER_KG}
+function adjustedDailyBurn(){return calculateBurnData(estimatedWeightFromDebt()).dailyBurn}
+function adjustedBMR(){return calculateBurnData(estimatedWeightFromDebt()).bmr}
+
+function burnMetabolismUntil(endMs){
+  const paused=load("paused",false),last=load("lastTime",endMs);
+  if(endMs<=last){save("lastTime",endMs);return}
+  if(paused){save("lastTime",endMs);return}
+  const burn=adjustedDailyBurn(); if(burn<=0){save("lastTime",endMs);return}
+  const seconds=(endMs-last)/1000,burned=seconds*(burn/86400);
+  let debt=load("remainingDebt",0),dailyTotal=load("totalMetabolicBurn",0),accumulated=load("accumulatedMetabolicBurn",0);
+  debt=Math.max(0,debt-burned); dailyTotal+=burned; accumulated+=burned;
+  save("remainingDebt",debt); save("totalMetabolicBurn",dailyTotal); save("accumulatedMetabolicBurn",accumulated); save("lastTime",endMs);
+}
+
+function burnMetabolism(){ burnMetabolismUntil(Date.now()); }
+
+function addLog(type,name,calories,note){ addLogForDate(todayKey(),type,name,calories,note); }
+function addLogForDate(date,type,name,calories,note){
+  const logs=load("logs",[]);
+  logs.unshift({date:date,time:nowText(),type:type,name:name,calories:calories,note:note});
+  save("logs",logs);
+}
+
+function closeDayLog(dateKey){
+  const debt=load("remainingDebt",0),metabolic=load("totalMetabolicBurn",0),exercise=load("totalExercise",0),food=load("totalFood",0);
+  const net=metabolic+exercise-food;
+  addLogForDate(dateKey,"Daily Close","End of day calorie debt",-debt,"Auto close: metabolic +"+fmt(metabolic)+" kcal, exercise +"+fmt(exercise)+" kcal, food -"+fmt(food)+" kcal, net "+(net>=0?"+":"-")+fmt(Math.abs(net))+" kcal.");
+}
+
+function handleDateChange(){
+  if(rolloverBusy) return;
+  if(load("remainingDebt",null)===null) return;
+  rolloverBusy = true;
+  try{
+    ensureAccumulatedKeys();
+    let lastDate = load("lastActiveDate", todayKey());
+    const currentDate = todayKey();
+    let guard = 0;
+    while(lastDate !== currentDate && guard < 370){
+      const nextDate = nextDayKey(lastDate);
+      const nextMidnight = dateFromKey(nextDate).getTime();
+      burnMetabolismUntil(nextMidnight);
+      closeDayLog(lastDate);
+      resetDailyTotals();
+      save("lastActiveDate", nextDate);
+      save("lastTime", nextMidnight);
+      lastDate = nextDate;
+      guard++;
+    }
+    if(load("selectedDate", currentDate) !== currentDate){
+      selectedDate = currentDate;
+      save("selectedDate", selectedDate);
+      displaySelectedDate();
+    }
+  } finally { rolloverBusy = false; }
+}
+
 function addFood(){
-  burnMetabolism();
-  const dateKey=todayKey();
+  handleDateChange(); burnMetabolism();
   const name=entryName.value||"Food",calories=Number(foodInput.value);
   if(calories<=0){alert("Enter food calories.");return}
-  let debt=load("remainingDebt",0),accum=load("totalFoodAccum",load("totalFood",0));
-  debt+=calories;accum+=calories;
-  save("remainingDebt",debt);save("totalFoodAccum",accum);save("totalFood",accum);
-  updateDay(dateKey, day=>{day.food+=calories;day.debtEnd=debt});
-  addLog("Food",name,-calories,"Food intake added to calorie debt",dateKey);
-  entryName.value="";foodInput.value="";selectedDate=dateKey;displaySelectedDate();update();
+  let debt=load("remainingDebt",0),daily=load("totalFood",0),accumulated=load("accumulatedFood",0);
+  debt+=calories; daily+=calories; accumulated+=calories;
+  save("remainingDebt",debt); save("totalFood",daily); save("accumulatedFood",accumulated);
+  addLog("Food",name,-calories,"Food intake added to calorie debt");
+  entryName.value="";foodInput.value="";update();
 }
+
 function addExercise(){
-  burnMetabolism();
-  const dateKey=todayKey();
+  handleDateChange(); burnMetabolism();
   const name=entryName.value||"Exercise",calories=Number(exerciseInput.value);
   if(calories<=0){alert("Enter exercise calories.");return}
-  let debt=load("remainingDebt",0),accum=load("totalExerciseAccum",load("totalExercise",0));
-  debt=Math.max(0,debt-calories);accum+=calories;
-  save("remainingDebt",debt);save("totalExerciseAccum",accum);save("totalExercise",accum);
-  updateDay(dateKey, day=>{day.exercise+=calories;day.debtEnd=debt});
-  addLog("Exercise",name,calories,"Exercise burn subtracted from calorie debt",dateKey);
-  entryName.value="";exerciseInput.value="";selectedDate=dateKey;displaySelectedDate();update();
+  let debt=load("remainingDebt",0),daily=load("totalExercise",0),accumulated=load("accumulatedExercise",0);
+  debt=Math.max(0,debt-calories); daily+=calories; accumulated+=calories;
+  save("remainingDebt",debt); save("totalExercise",daily); save("accumulatedExercise",accumulated);
+  addLog("Exercise",name,calories,"Exercise burn subtracted from calorie debt");
+  entryName.value="";exerciseInput.value="";update();
 }
+
 function recordWeighIn(){
-  burnMetabolism();
-  const dateKey=todayKey();
+  handleDateChange(); burnMetabolism();
   const actualWeight=Number(weighInInput.value),target=load("targetWeight",0);
   if(actualWeight<=0||target<=0){alert("Enter a valid scale weight.");return}
   const predictedWeight=estimatedWeightFromDebt(),oldDebt=load("remainingDebt",0),newDebt=Math.max(0,(actualWeight-target)*KCAL_PER_KG),debtDifference=newDebt-oldDebt,weightDifference=actualWeight-predictedWeight;
   save("remainingDebt",newDebt);save("lastRecordedWeight",actualWeight);
-  updateDay(dateKey, day=>{day.debtEnd=newDebt});
-  addLog("Weigh-In",actualWeight.toFixed(1)+" kg",-debtDifference,"Model weight: "+predictedWeight.toFixed(2)+" kg; actual: "+actualWeight.toFixed(2)+" kg; debt recalibrated",dateKey);
+  addLog("Weigh-In",actualWeight.toFixed(1)+" kg",-debtDifference,"Model weight: "+predictedWeight.toFixed(2)+" kg; actual: "+actualWeight.toFixed(2)+" kg; debt recalibrated");
   weighInInput.value="";
   setText("modelVsActual",predictedWeight.toFixed(2)+" kg → "+actualWeight.toFixed(2)+" kg ("+weightDifference.toFixed(2)+" kg)");
-  selectedDate=dateKey;displaySelectedDate();update();
+  update();
 }
+
 function manualAdjust(){
-  burnMetabolism();
-  const dateKey=todayKey();
+  handleDateChange(); burnMetabolism();
   const note=adjustNote.value||"Manual adjustment",calories=Number(adjustInput.value);
   if(calories===0){alert("Enter a positive or negative adjustment.");return}
   let debt=load("remainingDebt",0);
-  debt=Math.max(0,debt+calories);save("remainingDebt",debt);
-  updateDay(dateKey, day=>{day.debtEnd=debt});
-  addLog("Adjustment",note,-calories,"Manual correction",dateKey);
-  adjustNote.value="";adjustInput.value="";selectedDate=dateKey;displaySelectedDate();update();
+  debt=Math.max(0,debt+calories);
+  save("remainingDebt",debt);
+  addLog("Adjustment",note,-calories,"Manual correction");
+  adjustNote.value="";adjustInput.value="";update();
 }
-function togglePause(){burnMetabolism();const paused=load("paused",false);save("paused",!paused);save("lastTime",Date.now());update()}
+
+function togglePause(){ handleDateChange(); burnMetabolism(); const paused=load("paused",false); save("paused",!paused);save("lastTime",Date.now());update(); }
 
 function update(){
-  burnMetabolism();
-  const today=todayKey();ensureDay(today);
-  const stats=getDailyStats();
-  const day=stats[today]||blankDay(load("remainingDebt",0));
-  const debt=load("remainingDebt",0),startingDebt=load("startingDebt",0);
-  const accumFood=load("totalFoodAccum",load("totalFood",0)),accumExercise=load("totalExerciseAccum",load("totalExercise",0)),accumMetabolic=load("totalMetabolicBurnAccum",load("totalMetabolicBurn",0));
+  handleDateChange(); burnMetabolism(); ensureAccumulatedKeys();
+  const debt=load("remainingDebt",0),startingDebt=load("startingDebt",0),food=load("totalFood",0),exercise=load("totalExercise",0),metabolic=load("totalMetabolicBurn",0);
   const burn=adjustedDailyBurn(),bmr=adjustedBMR(),estimatedWeight=estimatedWeightFromDebt(),lastWeight=load("lastRecordedWeight",estimatedWeight);
+
   setText("remainingDebt",signed(debt,"negative"));
-  setText("totalFood",signed(day.food,"negative"));
-  setText("totalExercise",signed(day.exercise,"positive"));
-  setText("totalMetabolicBurn",signed(day.metabolic,"positive"));
-  setText("accumFoodIntake",signed(accumFood,"negative")+" kcal");
-  setText("accumExerciseBurn",signed(accumExercise,"positive")+" kcal");
-  setText("accumMetabolicBurn",signed(accumMetabolic,"positive")+" kcal");
+  setText("totalFood",signed(food,"negative"));
+  setText("totalExercise",signed(exercise,"positive"));
+  setText("totalMetabolicBurn",signed(metabolic,"positive"));
   setText("currentBMR","+"+fmt(bmr)+" kcal/day");
   setText("estimatedDailyBurn","+"+fmt(burn)+" kcal/day");
   setText("estimatedCurrentWeight",estimatedWeight.toFixed(2)+" kg");
   setText("lastScaleWeight",lastWeight.toFixed(2)+" kg");
   setText("remainingWeight",(debt/KCAL_PER_KG).toFixed(2)+" kg");
   setText("burnRate","+"+(burn/86400).toFixed(5)+" kcal/sec");
+  setText("accumulatedMetabolicBurn",signed(load("accumulatedMetabolicBurn",0),"positive")+" kcal");
+  setText("accumulatedExerciseBurn",signed(load("accumulatedExercise",0),"positive")+" kcal");
+  setText("accumulatedFoodIntake",signed(load("accumulatedFood",0),"negative")+" kcal");
+
   const start=load("startTime",Date.now()),elapsedSeconds=Math.floor((Date.now()-start)/1000);
   const h=Math.floor(elapsedSeconds/3600),m=Math.floor((elapsedSeconds%3600)/60),s=elapsedSeconds%60;
   setText("elapsedTime",h+" h "+m+" m "+s+" s");
+
   const progress=startingDebt>0?Math.min(100,Math.max(0,((startingDebt-debt)/startingDebt)*100)):0;
   progressBar.style.width=progress.toFixed(1)+"%";progressBar.textContent=progress.toFixed(1)+"%";
-  if(burn>0&&debt>0){const secondsToTarget=debt/(burn/86400),date=new Date(Date.now()+secondsToTarget*1000);setText("targetDate",date.toLocaleDateString())}else setText("targetDate","Reached");
+
+  if(burn>0&&debt>0){
+    const secondsToTarget=debt/(burn/86400),date=new Date(Date.now()+secondsToTarget*1000);
+    setText("targetDate",date.toLocaleDateString());
+  }else setText("targetDate","Reached");
+
   setText("pauseStatus",load("paused",false)?"Paused":"Running");
   updateTodaySummary();renderLog();
 }
+
 function updateTodaySummary(){
   const chosen=selectedDate;
-  const stats=getDailyStats();
-  const day=stats[chosen]||blankDay(0);
-  const logs=load("logs",[]);
-  let adjustment=0,weigh=0;
-  logs.forEach(item=>{if(item.date===chosen){if(item.type==="Adjustment")adjustment+=item.calories;if(item.type==="Weigh-In")weigh+=item.calories}});
-  const net=day.exercise+day.metabolic-day.food+adjustment+weigh;
-  setText("todayNet",(net>=0?"+":"-")+fmt(Math.abs(net))+" kcal");setClassBySign("todayNet",net);
+  let food=0,exercise=0,metabolicForDay=0,adjustment=0,weigh=0;
+
+  if(chosen === todayKey()){
+    food = load("totalFood",0);
+    exercise = load("totalExercise",0);
+    metabolicForDay = load("totalMetabolicBurn",0);
+  }else{
+    const logs=load("logs",[]);
+    logs.forEach(item=>{
+      if(item.date===chosen){
+        if(item.type==="Food")food+=Math.abs(item.calories);
+        if(item.type==="Exercise")exercise+=Math.abs(item.calories);
+        if(item.type==="Adjustment")adjustment+=item.calories;
+        if(item.type==="Weigh-In")weigh+=item.calories;
+      }
+    });
+  }
+
+  const net=exercise+metabolicForDay-food+adjustment+weigh;
+  setText("todayNet",(net>=0?"+":"-")+fmt(Math.abs(net))+" kcal");
+  setClassBySign("todayNet",net);
 }
+
 function renderLog(){
-  const logs=load("logs",[]),box=document.getElementById("log");box.innerHTML="";
+  const logs=load("logs",[]);
+  const box=document.getElementById("log");
+  box.innerHTML="";
   const filtered=logs.filter(item=>item.date===selectedDate);
-  if(filtered.length===0){box.innerHTML='<div class="logItem"><div class="logIcon green">ℹ</div><div><div class="logTitle">No entries for this date</div><div class="logTime">Use the arrows to check another day.</div></div><div></div></div>';return}
+  if(filtered.length===0){
+    box.innerHTML='<div class="logItem"><div class="logIcon green">ℹ</div><div><div class="logTitle">No entries for this date</div><div class="logTime">Use the arrows to check another day.</div></div><div></div></div>';
+    return;
+  }
   filtered.slice(0,20).forEach(item=>{
-    const isPositive=item.calories>=0,color=isPositive?"green":"red",icon=item.type==="Food"?"🍴":item.type==="Exercise"?"🏃":item.type==="Weigh-In"?"⚖":item.type==="Daily Close"?"🌙":"•",amount=(isPositive?"+":"-")+fmt(Math.abs(item.calories))+" kcal";
+    const isPositive=item.calories>=0,color=isPositive?"green":"red",icon=item.type==="Food"?"🍴":item.type==="Exercise"?"🏃":item.type==="Weigh-In"?"⚖":item.type==="Daily Close"?"🌙":item.type==="System"?"⚙":"•",amount=(isPositive?"+":"-")+fmt(Math.abs(item.calories))+" kcal";
     box.innerHTML+=`<div class="logItem"><div class="logIcon ${color}">${icon}</div><div><div class="logTitle ${color==="green"?"positive":"negative"}">${item.type}: ${item.name}</div><div class="logTime">${item.time}</div></div><div class="logKcal ${color}">${amount}</div></div>`;
   });
 }
+
 function exportCSV(){
-  const logs=load("logs",[]);let csv="Date,Time,Type,Name,Calories,Note\n";
+  const logs=load("logs",[]);
+  let csv="Date,Time,Type,Name,Calories,Note\n";
   logs.forEach(item=>{csv+=`"${item.date}","${item.time}","${item.type}","${item.name}","${item.calories}","${item.note}"\n`});
-  const blob=new Blob([csv],{type:"text/csv"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="calorie_debt_log.csv";a.click();URL.revokeObjectURL(url);
+  const blob=new Blob([csv],{type:"text/csv"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="calorie_debt_log.csv";a.click();URL.revokeObjectURL(url);
 }
-function resetTracker(){if(!confirm("Reset everything?"))return;localStorage.clear();clearInterval(timer);location.reload()}
+
+function resetTracker(){
+  if(!confirm("Reset everything?"))return;
+  localStorage.clear();clearInterval(timer);location.reload();
+}
 
 window.onload=function(){
   if(load("darkMode",false)) document.body.classList.add("dark");
   selectedDate = todayKey();
+  save("selectedDate", selectedDate);
   displaySelectedDate();
-  currentWeight.value=load("currentWeight","");targetWeight.value=load("targetWeight","");heightCm.value=load("heightCm","");ageYears.value=load("ageYears","");sex.value=load("sex","male");activityLevel.value=load("activityLevel",1.2);
-  if(load("remainingDebt",null)!==null){ensureDay(todayKey());update();clearInterval(timer);timer=setInterval(update,1000)}
-  else{ensureDay(todayKey());updateTodaySummary();renderLog()}
+
+  currentWeight.value=load("currentWeight","");
+  targetWeight.value=load("targetWeight","");
+  heightCm.value=load("heightCm","");
+  ageYears.value=load("ageYears","");
+  sex.value=load("sex","male");
+  activityLevel.value=load("activityLevel",1.2);
+
+  if(load("remainingDebt",null)!==null){
+    if(load("lastActiveDate",null)===null) save("lastActiveDate", todayKey());
+    ensureAccumulatedKeys();
+    update();clearInterval(timer);timer=setInterval(update,1000);
+  }else{updateTodaySummary();renderLog()}
 };
 
-let touchStartX = 0, touchStartY = 0, touchEndX = 0, touchEndY = 0;
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
 function setupDateSwipe(){
-  const bar = document.getElementById("datebar");if(!bar) return;
-  bar.addEventListener("touchstart", function(e){if(!e.touches || e.touches.length === 0) return;touchStartX = e.touches[0].clientX;touchStartY = e.touches[0].clientY}, {passive:true});
-  bar.addEventListener("touchmove", function(e){if(!e.touches || e.touches.length === 0) return;const dx = e.touches[0].clientX - touchStartX;if(Math.abs(dx) > 25){bar.classList.toggle("swipeRight", dx > 0);bar.classList.toggle("swipeLeft", dx < 0)}}, {passive:true});
-  bar.addEventListener("touchend", function(e){bar.classList.remove("swipeLeft","swipeRight");if(!e.changedTouches || e.changedTouches.length === 0) return;touchEndX = e.changedTouches[0].clientX;touchEndY = e.changedTouches[0].clientY;const dx = touchEndX - touchStartX,dy = touchEndY - touchStartY;if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5){if(dx < 0) changeDay(1);else changeDay(-1)}}, {passive:true});
+  const bar = document.getElementById("datebar");
+  if(!bar) return;
+  bar.addEventListener("touchstart", function(e){
+    if(!e.touches || e.touches.length === 0) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, {passive:true});
+  bar.addEventListener("touchmove", function(e){
+    if(!e.touches || e.touches.length === 0) return;
+    const dx = e.touches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 25){
+      bar.classList.toggle("swipeRight", dx > 0);
+      bar.classList.toggle("swipeLeft", dx < 0);
+    }
+  }, {passive:true});
+  bar.addEventListener("touchend", function(e){
+    bar.classList.remove("swipeLeft","swipeRight");
+    if(!e.changedTouches || e.changedTouches.length === 0) return;
+    touchEndX = e.changedTouches[0].clientX;
+    touchEndY = e.changedTouches[0].clientY;
+    const dx = touchEndX - touchStartX;
+    const dy = touchEndY - touchStartY;
+    if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5){
+      if(dx < 0) changeDay(1);
+      else changeDay(-1);
+    }
+  }, {passive:true});
 }
+
 setupDateSwipe();
 if("serviceWorker" in navigator){navigator.serviceWorker.register("service-worker.js")}
 </script>
